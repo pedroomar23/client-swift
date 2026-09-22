@@ -22,3 +22,15 @@ dependencies: [
 ```
 
 ## 📱 Usage
+```swift 
+import QvaPay 
+
+let qvapay = QvaPayApi.shared 
+```
+
+## 🧰 Used Arquitect 
+- [x] ✅ Swift 6.4
+- [x] ✅ URLSession 
+- [x] ✅ Singlenton Patron 
+
+## ⚙️ SDK Docomentation
