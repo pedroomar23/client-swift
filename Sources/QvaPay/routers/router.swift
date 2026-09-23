@@ -7,6 +7,7 @@ enum Router: Sendable {
     case register(params: String)
     case registerConfirm(params: String)
     case sessions
+    case requestPin(params: String)
 
     private var url: URL {
         return URL(string: Router.urlApi + path)!
@@ -18,6 +19,7 @@ enum Router: Sendable {
             case .register: return "/auth/register"
             case .registerConfirm: return "/auth/confirm-registration"
             case .sessions: return "/auth/sessions"
+            case .requestPin: return "/auth/request-pin"
         }
     }
 
@@ -27,6 +29,7 @@ enum Router: Sendable {
             case .register: return "POST"
             case .registerConfirm: return "POST"
             case .sessions: return "GET"
+            case .requestPin: return "POST"
         }
     }
 
@@ -36,6 +39,7 @@ enum Router: Sendable {
             case .register(let params): return params.data(using: .utf8)
             case .registerConfirm(let params): return params.data(using: .utf8)
             case .sessions: return nil
+            case .requestPin(let params): return params.data(using: .utf8)
         }
     }
 

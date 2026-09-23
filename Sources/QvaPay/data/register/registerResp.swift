@@ -21,6 +21,12 @@ public struct RegisterResp: Codable, Sendable {
     }
 }
 
+extension RegisterResp: CustomStringConvertible {
+    public var description: String {
+        return "message: \(message), user: \(user)"
+    }
+}
+
 public struct User: Codable, Sendable {
     public let uuid: String
     public let email: String
@@ -47,5 +53,11 @@ public struct User: Codable, Sendable {
         self.email = email
         self.name = name
         self.username = username
+    }
+}
+
+extension User: CustomStringConvertible {
+    public var description: String {
+        return "uuid: \(uuid), email: \(email), name: \(name), username: \(username)"
     }
 }

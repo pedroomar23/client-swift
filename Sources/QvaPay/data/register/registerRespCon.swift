@@ -16,3 +16,9 @@ public struct RegisterRespCon: Codable, Sendable {
         self.message = message
     }
 }
+
+extension RegisterRespCon: CustomStringConvertible {
+    public var description: String {
+        return "message: \(message)"
+    }
+}

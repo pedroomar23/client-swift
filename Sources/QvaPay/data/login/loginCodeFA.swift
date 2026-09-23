@@ -24,3 +24,9 @@ public struct LoginCode: Codable, Sendable {
         self.has_otp = has_otp
     }
 }
+
+extension LoginCode: CustomStringConvertible {
+    public var description: String {
+        return "info: \(info), notified: \(notified), has_otp: \(has_otp)"
+    }
+}

@@ -32,11 +32,17 @@ public struct RegisterConfirm: Codable, Sendable {
     }
 
     func jsonData() throws -> Data? {
-        return try JSONEncoder().encode(self)
+        return try? JSONEncoder().encode(self)
     }
 
-    func jsonString() throws -> String? {
-        let data = try jsonData()!
-        return String(data: data, encoding: .utf8)
+    func jsonString(encoding: String.Encoding = .utf8) throws -> String? {
+        let data = try? jsonData()!
+        return String(data: data!, encoding: encoding)
+    }
+}
+
+extension RegisterConfirm: CustomStringConvertible {
+    public var description: String {
+        return "uuid: \(uuid), email: \(email), pin: \(pin)"
     }
 }

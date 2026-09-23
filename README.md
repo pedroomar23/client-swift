@@ -21,7 +21,12 @@ dependencies: [
 ]
 ```
 
-## 📱 Usage
+# 🚀 Information 
+```bash
+QvaPay 
+```
+
+# 📱 Usage
 ```swift 
 import QvaPay 
 

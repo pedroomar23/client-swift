@@ -40,8 +40,14 @@ public struct LoginRequest: Codable, Sendable {
         return try JSONEncoder().encode(self)
     }
 
-    func jsonString() throws -> String? {
+    func jsonString(encoding: String.Encoding = .utf8) throws -> String? {
         let data = try self.jsonData()!
-        return String(data: data, encoding: .utf8)
+        return String(data: data, encoding: encoding)
+    }
+}
+
+extension LoginRequest: CustomStringConvertible {
+    public var description: String {
+        return "email: \(email), password: \(password), remember: \(remember), two_factor_code: \(two_factor_code)"
     }
 }

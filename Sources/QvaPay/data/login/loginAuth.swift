@@ -25,6 +25,12 @@ public struct LoginAuth: Codable, Sendable {
     }
 }
 
+extension LoginAuth: CustomStringConvertible {
+    public var description: String {
+        return "accessToken: \(accessToken), token_type: \(token_type), me: \(me)"
+    }
+}
+
 public struct ME: Codable, Sendable {
     public let uuid: String
     public let email: String
@@ -55,5 +61,11 @@ public struct ME: Codable, Sendable {
         self.name = name
         self.username = username
         self.balance = balance
+    }
+}
+
+extension ME: CustomStringConvertible {
+    public var description: String {
+        return "uuid: \(uuid), email: \(email), name: \(name), username: \(username), balance: \(balance)"
     }
 }

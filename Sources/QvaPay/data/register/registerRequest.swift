@@ -47,11 +47,17 @@ public struct RegisterRequest: Codable, Sendable {
     }
 
     func jsonData() throws -> Data? {
-        return try JSONEncoder().encode(self)
+        return try? JSONEncoder().encode(self)
     }
 
-    func jsonString() throws -> String {
-        let data = try self.jsonData()!
-        return String(data: data, encoding: .utf8)!
+    func jsonString(encoding: String.Encoding = .utf8) throws -> String? {
+        let data = try? self.jsonData()!
+        return String(data: data!, encoding: encoding)!
+    }
+}
+
+extension RegisterRequest: CustomStringConvertible {
+    public var description: String {
+        return "name: \(name), lastname: \(lastname), email: \(email), password: \(password), invite: \(invite), terms: \(terms)"
     }
 }
