@@ -103,4 +103,26 @@ public class QvaPayApi: @unchecked Sendable {
             }
         }
     }
+
+    // MARK: - Coins
+
+    public func coins(
+        completion: @escaping (Result<[CoinsResp], Error>) -> Void
+    ) async {
+        try? await response.sendResponse(
+            router: Router.coins,
+            type: [CoinsResp].self
+        ) { result in
+            switch result {
+                case let .success(model):
+                    completion(.success(model))
+                    self.logger.debug("✅ DEBUG: JSON RESPONSE SUCCESS \(model)")
+                case let .failure(error):
+                    completion(.failure(error))
+                    self.logger.error("❌ DEBUG: JSON RESPONSE FAILURE \(error.localizedDescription)")
+            }
+        }
+    }
+
+    // MARK: -
 }

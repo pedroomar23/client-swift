@@ -187,4 +187,93 @@ final class QvaPayTests: XCTestCase {
         XCTAssertEqual(session.sessions[0].expires_at, "2024-07-15T10:30:00.000Z")
         XCTAssertEqual(session.currentSessionId, "12345")
     }
+
+    // MARK: - Coins
+
+    func testCoins() throws {
+        let jsonString = """
+        [
+          {
+            "id": 1,
+            "name": "Criptomonedas",
+            "logo": "crypto",
+            "Coins": [
+              {
+                "id": "6",
+                "coins_categories_id": 1,
+                "network": "TRON",
+                "name": "USDT (TRC20)",
+                "logo": "usdt",
+                "tick": "USDT",
+                "fee_in": "0.2",
+                "fee_in_gold": "0",
+                "fee_out": "1",
+                "fee_out_gold": "0.8",
+                "fee_out_fixed": [100, 1],
+                "min_in": "1",
+                "min_out": "2",
+                "max_in": 1000000,
+                "max_out": 5000,
+                "working_data": [
+                  {
+                    "name": "Wallet",
+                    "type": "text"
+                  }
+                ],
+                "enabled_in": true,
+                "enabled_out": true,
+                "enabled_p2p": true,
+                "auto_withdraw": true,
+                "p2p_rate_discount": "0",
+                "trade": false,
+                "price": "1",
+                "decimals": 2,
+                "stable": true,
+                "created_at": null,
+                "updated_at": "2025-06-12T03:40:01.000Z",
+                "description": "### ¿Qué es USDT (TRC20)? ...",
+                "seo_title": "USDT TRC20 ✓ Compra y envía en QvaPay",
+                "seo_description": "USDT TRC20 en QvaPay: stablecoin rápido y seguro..."
+              }
+            ]
+          }
+        ]
+        """
+        let jsonData = jsonString.data(using: .utf8)!
+        let coins = try JSONDecoder().decode([CoinsResp].self, from: jsonData)
+        print("✅ DEBUG: TEST JSON SUCCESS \(coins)")
+
+        XCTAssertEqual(coins[0].id, 1)
+        XCTAssertEqual(coins[0].name, "Criptomonedas")
+        XCTAssertEqual(coins[0].logo, "crypto")
+        XCTAssertEqual(coins[0].coins[0].id, "6")
+        XCTAssertEqual(coins[0].coins[0].coins_categories_id, 1)
+        XCTAssertEqual(coins[0].coins[0].network, "TRON")
+        XCTAssertEqual(coins[0].coins[0].name, "USDT (TRC20)")
+        XCTAssertEqual(coins[0].coins[0].logo, "usdt")
+        XCTAssertEqual(coins[0].coins[0].tick, "USDT")
+        XCTAssertEqual(coins[0].coins[0].fee_in, "0.2")
+        XCTAssertEqual(coins[0].coins[0].fee_in_gold, "0")
+        XCTAssertEqual(coins[0].coins[0].fee_out, "1")
+        XCTAssertEqual(coins[0].coins[0].fee_out_gold, "0.8")
+        XCTAssertEqual(coins[0].coins[0].fee_out_fixed, [100,1])
+        XCTAssertEqual(coins[0].coins[0].min_in, "1")
+        XCTAssertEqual(coins[0].coins[0].max_in, 1000000)
+        XCTAssertEqual(coins[0].coins[0].max_out, 5000)
+        XCTAssertEqual(coins[0].coins[0].working_data[0].name, "Wallet")
+        XCTAssertEqual(coins[0].coins[0].working_data[0].type, "text")
+        XCTAssertEqual(coins[0].coins[0].enabled_in, true)
+        XCTAssertEqual(coins[0].coins[0].enabled_out, true)
+        XCTAssertEqual(coins[0].coins[0].enabled_p2p, true)
+        XCTAssertEqual(coins[0].coins[0].p2p_rate_discount, "0")
+        XCTAssertEqual(coins[0].coins[0].trade, false)
+        XCTAssertEqual(coins[0].coins[0].price, "1")
+        XCTAssertEqual(coins[0].coins[0].decimals, 2)
+        XCTAssertEqual(coins[0].coins[0].stable, true)
+        XCTAssertEqual(coins[0].coins[0].created_at, nil)
+        XCTAssertEqual(coins[0].coins[0].updated_at, "2025-06-12T03:40:01.000Z")
+        XCTAssertEqual(coins[0].coins[0].description, "### ¿Qué es USDT (TRC20)? ...")
+        XCTAssertEqual(coins[0].coins[0].seo_title, "USDT TRC20 ✓ Compra y envía en QvaPay")
+        XCTAssertEqual(coins[0].coins[0].seo_description, "USDT TRC20 en QvaPay: stablecoin rápido y seguro...")
+    }
 }
