@@ -121,6 +121,7 @@ Contributions are welcome! Please feel free to open an issue or submit a pull re
 
 This project was created by Pedro Omar and is available under the MIT License. Feel free to use it in your projects. If you have any questions or need further assistance, feel free to contact me.
 
+-------
 <p align="center">
     😃 All Right Reserved. © QvaPay Client 2026. 
 </p>
