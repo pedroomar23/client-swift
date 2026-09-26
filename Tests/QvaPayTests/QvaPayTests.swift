@@ -276,4 +276,88 @@ final class QvaPayTests: XCTestCase {
         XCTAssertEqual(coins[0].coins[0].seo_title, "USDT TRC20 ✓ Compra y envía en QvaPay")
         XCTAssertEqual(coins[0].coins[0].seo_description, "USDT TRC20 en QvaPay: stablecoin rápido y seguro...")
     }
+
+    // MARK: - Tests Stocks
+
+    func testStocks() throws {
+        let jsonString = """
+        [
+          {
+            "symbol": "AAPL",
+            "name": "Apple",
+            "icon": "apple",
+            "iconStyle": "brand",
+            "image": "https://www.qvapay.com/img/stocks/AAPL.svg",
+            "price": 178.52,
+            "change": 1.25,
+            "changeDollar": 2.21,
+            "volume": 54320100,
+            "timestamp": "2025-03-17 15:30:00"
+          },
+          {
+            "symbol": "GOOGL",
+            "name": "Alphabet",
+            "icon": "google",
+            "iconStyle": "brand",
+            "image": "https://www.qvapay.com/img/stocks/GOOGL.svg",
+            "price": 141.80,
+            "change": -0.45,
+            "changeDollar": -0.64,
+            "volume": 21540300,
+            "timestamp": "2025-03-17 15:30:00"
+          }
+        ]
+        """
+        let jsonData = jsonString.data(using: .utf8)!
+        let stoks = try JSONDecoder().decode([Stocks].self, from: jsonData)
+        print("DEBUG: JSON SUCCESS RESPONSE: \(stoks)")
+
+        XCTAssertEqual(stoks[0].symbol, "AAPL")
+        XCTAssertEqual(stoks[0].name, "Apple")
+        XCTAssertEqual(stoks[0].icon, "apple")
+        XCTAssertEqual(stoks[0].iconStyle, "brand")
+        XCTAssertEqual(stoks[0].image, "https://www.qvapay.com/img/stocks/AAPL.svg")
+        XCTAssertEqual(stoks[0].price, 178.52)
+        XCTAssertEqual(stoks[0].change, 1.25)
+        XCTAssertEqual(stoks[0].changeDollar, 2.21)
+        XCTAssertEqual(stoks[0].volume, 54320100)
+        XCTAssertEqual(stoks[0].timestamp, "2025-03-17 15:30:00")
+    }
+
+    // MARK: - TEST Stock Buy
+
+    func testStockBuy() throws {
+        let jsonString = """
+        {
+          "success": true,
+          "data": {
+            "trade_uuid": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+            "transaction_uuid": "f0e1d2c3-b4a5-6789-0abc-def123456789",
+            "symbol": "AAPL",
+            "quantity": 0.279832,
+            "effective_price": 178.68,
+            "market_price": 178.25,
+            "spread_percent": 0.24,
+            "fee": 0.25,
+            "total_debited": 50.25,
+            "after_hours": false
+          }
+        }
+        """
+        let jsonData = jsonString.data(using: .utf8)!
+        let stocks = try JSONDecoder().decode(StockResp.self, from: jsonData)
+        print("DEBUG: JSON RESPONSE SUCCESS \(stocks)")
+
+        XCTAssertEqual(stocks.success, true)
+        XCTAssertEqual(stocks.data.trade_uuid, "a1b2c3d4-e5f6-7890-abcd-ef1234567890")
+        XCTAssertEqual(stocks.data.transaction_uuid, "f0e1d2c3-b4a5-6789-0abc-def123456789")
+        XCTAssertEqual(stocks.data.symbol, "AAPL")
+        XCTAssertEqual(stocks.data.quantity, 0.279832)
+        XCTAssertEqual(stocks.data.effective_price, 178.68)
+        XCTAssertEqual(stocks.data.market_price, 178.25)
+        XCTAssertEqual(stocks.data.spread_percent, 0.24)
+        XCTAssertEqual(stocks.data.fee, 0.25)
+        XCTAssertEqual(stocks.data.total_debited, 50.25)
+        XCTAssertEqual(stocks.data.after_hours, false)
+    }
 }

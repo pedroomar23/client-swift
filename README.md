@@ -104,7 +104,7 @@ func loginRequest() async {
 This sdk is documentated on [docs](https://github.com/pedroomar23/client-swift/blob/main/docs/docs.md)
 
 ## 📚 Examples using the MVVM Arquitecture 
-I use the sdk with MVVM Arquitecture with [examples](https://github.com/pedroomar23/client-swift/blob/main/examples/examples.swift) in a ViewModel for the developer that work in the QvaPay project in Swift could be more easy. This sdk include Models, API and tests JSON. The developer will be create the ViewModel and Views in Xcode. 
+I use the sdk with MVVM Arquitecture with [examples](https://github.com/pedroomar23/client-swift/blob/main/examples/QvaPay) in a project in Xcode using the sdk fot test the sdk and continue working in this.
 
 ## 👨‍💻 Developed by Pedro Omar 
 - 📩 Email: https://pocl9812@gmail.com

@@ -124,5 +124,75 @@ public class QvaPayApi: @unchecked Sendable {
         }
     }
 
-    // MARK: -
+    // MARK: - Stocks
+
+    public func stoks(
+        completion: @escaping (Result<[Stocks], Error>) -> Void
+    ) async {
+        try? await response.sendResponse(
+            router: Router.stocks,
+            type: [Stocks].self
+        ) { result in
+            switch result {
+                case let .success(model):
+                    completion(.success(model))
+                    self.logger.debug("✅ DEBUG: JSON RESPONSE SUCCESS \(model)")
+                case let .failure(error):
+                    completion(.failure(error))
+                    self.logger.error("❌ DEBUG: JSON RESPONSE FAILURE \(error.localizedDescription)")
+            }
+        }
+    }
+
+    // MARK: - Stocks Buy
+
+    public func stockBuy(
+        amount: String,
+        completion: @escaping (Result<StockResp, Error>) -> Void
+    ) async {
+        let params = try? StockBuy(
+            amount: amount
+        ).jsonString()!
+        self.logger.debug("✅ DEBUG: JSON REQUES SUCCESS \(params!)")
+
+        try? await response.sendResponse(
+            router: Router.stocksBuy(params: params!),
+            type: StockResp.self
+        ) { result in
+            switch result {
+                case let .success(model):
+                    completion(.success(model))
+                    self.logger.debug("✅ DEBUG: JSON RESPONSE SUCCESS \(model)")
+                case let .failure(error):
+                    completion(.failure(error))
+                    self.logger.error("❌ DEBUG: JSON RESPONSE FAILURE \(error.localizedDescription)")
+            }
+        }
+    }
+
+    // MARK: - Stocks Withdraw
+
+    public func stockWithdraw(
+        amount: String,
+        completion: @escaping (Result<StockResp, Error>) -> Void
+    ) async {
+        let params = try? StockWith(
+            amount: amount
+        ).jsonString()!
+        self.logger.debug("✅ DEBUG: JSON REQUEST SUCCESS \(params!)")
+
+        try? await response.sendResponse(
+            router: Router.stocksWith(params: params!),
+            type: StockResp.self
+        ) { result in
+            switch result {
+                case let .success(model):
+                    completion(.success(model))
+                    self.logger.debug("✅ DEBUG: JSON RESPONSE SUCCESS \(model)")
+                case let .failure(error):
+                    completion(.failure(error))
+                    self.logger.error("❌ DEBUG: JSON RESPONSE FAILURE \(error.localizedDescription)")
+            }
+        }
+    }
 }

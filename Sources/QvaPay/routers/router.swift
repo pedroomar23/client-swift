@@ -9,6 +9,9 @@ enum Router: Sendable {
     case sessions
     case requestPin(params: String)
     case coins
+    case stocks
+    case stocksBuy(params: String)
+    case stocksWith(params: String)
 
     private var url: URL {
         return URL(string: Router.urlApi + path)!
@@ -22,6 +25,9 @@ enum Router: Sendable {
             case .sessions: return "/auth/sessions"
             case .requestPin: return "/auth/request-pin"
             case .coins: return "/coins"
+            case .stocks: return "/stocks"
+            case .stocksBuy: return "/stocks/:tick/buy"
+            case .stocksWith: return "/stocks/:tick/cell"
         }
     }
 
@@ -33,6 +39,9 @@ enum Router: Sendable {
             case .sessions: return "GET"
             case .requestPin: return "POST"
             case .coins: return "GET"
+            case .stocks: return "GET"
+            case .stocksBuy: return "POST"
+            case .stocksWith: return "POST"
         }
     }
 
@@ -44,6 +53,9 @@ enum Router: Sendable {
             case .sessions: return nil
             case .requestPin(let params): return params.data(using: .utf8)
             case .coins: return nil
+            case .stocks: return nil
+            case .stocksBuy(let params): return params.data(using: .utf8)
+            case .stocksWith(let params): return params.data(using: .utf8)
         }
     }
 
