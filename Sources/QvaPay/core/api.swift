@@ -195,4 +195,24 @@ public class QvaPayApi: @unchecked Sendable {
             }
         }
     }
+
+    // MARK: - Portafolio
+
+    public func portafolio(
+        completion: @escaping (Result<PortafolioResp, Error>) -> Void
+    ) async {
+        try? await response.sendResponse(
+            router: Router.portafolio,
+            type: PortafolioResp.self
+        ) { result in
+            switch result {
+                case let .success(model):
+                    completion(.success(model))
+                    self.logger.debug("✅ DEBUG: JSON RESPONSE SUCCESS \(model)")
+                case let .failure(error):
+                    completion(.failure(error))
+                    self.logger.error("❌ DEBUG: JSON RESPONSE FAILURE \(error.localizedDescription)")
+            }
+        }
+    }
 }

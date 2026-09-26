@@ -10,10 +10,10 @@
     <a href="[https://github.com/pedroomar23/client-swift/blob/main/License.md](https://github.com/pedroomar23/client-swift/blob/main/License.md)"><img src="https://img.shields.io/github/license/danielsaidi/SwiftUIKit" alt="MIT License" /></a>
 </p>
 
-# 📱 Description 
+## 📱 Description 
 `QvaPay` is a sdk write in Swift that work with the [QvaPay Api](https://qvapay.com/docs).
 
-# 📦 Installation 
+## 📦 Installation 
 
 ```swift
 dependencies: [
@@ -21,12 +21,12 @@ dependencies: [
 ]
 ```
 
-# 🚀 Information 
+## 🚀 Information 
 ```bash
 QvaPay 
 ```
 
-# 📱 Import in the Project
+## 📱 Import in the Project
 ```swift 
 import QvaPay 
 ```
@@ -120,3 +120,9 @@ Contributions are welcome! Please feel free to open an issue or submit a pull re
 ------
 
 This project was created by Pedro Omar and is available under the MIT License. Feel free to use it in your projects. If you have any questions or need further assistance, feel free to contact me.
+
+<p align="center">
+    <h2 align="center">
+        😃 All Right Reserved. © QvaPay Client 2026. 
+    </h2>
+</p>

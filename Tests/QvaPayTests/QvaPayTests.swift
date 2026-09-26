@@ -360,4 +360,89 @@ final class QvaPayTests: XCTestCase {
         XCTAssertEqual(stocks.data.total_debited, 50.25)
         XCTAssertEqual(stocks.data.after_hours, false)
     }
+
+    // MARK: - Test Portafolio
+
+    func testPortafolio() throws {
+        let jsonString = """
+        {
+          "success": true,
+          "data": {
+            "positions": [
+              {
+                "id": "1",
+                "symbol": "AAPL",
+                "quantity": 1.279832,
+                "avg_cost": 175.40,
+                "current_price": 178.52,
+                "market_value": 228.48,
+                "cost_basis": 224.49,
+                "unrealized_pnl": 3.99,
+                "unrealized_pnl_percent": 1.78
+              }
+            ],
+            "summary": {
+              "total_market_value": 228.48,
+              "total_cost_basis": 224.49,
+              "total_unrealized_pnl": 3.99,
+              "total_unrealized_pnl_percent": 1.78,
+              "market_open": true
+            },
+            "trades": [
+              {
+                "id": "1",
+                "uuid": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+                "symbol": "AAPL",
+                "type": "buy",
+                "quantity": 0.279832,
+                "market_price": 178.25,
+                "effective_price": 178.68,
+                "spread_percent": 0.24,
+                "fee_amount": 0.25,
+                "total_amount": 50.25,
+                "realized_pnl": null,
+                "after_hours": false,
+                "created_at": "2025-03-17T15:30:00.000Z"
+              }
+            ],
+            "pagination": {
+              "page": 1,
+              "take": 20
+            }
+          }
+        }
+        """
+        let jsonData = jsonString.data(using: .utf8)!
+        let portafolio = try JSONDecoder().decode(PortafolioResp.self, from: jsonData)
+        print("✅ DEBUG: JSON RESPONSE SUCCESS \(portafolio)")
+
+        XCTAssertEqual(portafolio.success, true)
+        XCTAssertEqual(portafolio.data.positions[0].id, "1")
+        XCTAssertEqual(portafolio.data.positions[0].symbol, "AAPL")
+        XCTAssertEqual(portafolio.data.positions[0].quantity, 1.279832)
+        XCTAssertEqual(portafolio.data.positions[0].avg_cost, 175.40)
+        XCTAssertEqual(portafolio.data.positions[0].current_price, 178.52)
+        XCTAssertEqual(portafolio.data.positions[0].market_value, 228.48)
+        XCTAssertEqual(portafolio.data.positions[0].cost_basis, 224.49)
+        XCTAssertEqual(portafolio.data.positions[0].unrealized_pnl, 3.99)
+        XCTAssertEqual(portafolio.data.positions[0].unrealized_pnl_percent, 1.78)
+        XCTAssertEqual(portafolio.data.summary.total_market_value, 228.48)
+        XCTAssertEqual(portafolio.data.summary.total_cost_basis, 224.49)
+        XCTAssertEqual(portafolio.data.summary.total_unrealized_pnl, 3.99)
+        XCTAssertEqual(portafolio.data.summary.total_unrealized_pnl_percent, 1.78)
+        XCTAssertEqual(portafolio.data.trades[0].id, "1")
+        XCTAssertEqual(portafolio.data.trades[0].uuid, "a1b2c3d4-e5f6-7890-abcd-ef1234567890")
+        XCTAssertEqual(portafolio.data.trades[0].symbol, "AAPL")
+        XCTAssertEqual(portafolio.data.trades[0].type, "buy")
+        XCTAssertEqual(portafolio.data.trades[0].market_price, 178.25)
+        XCTAssertEqual(portafolio.data.trades[0].effective_price, 178.68)
+        XCTAssertEqual(portafolio.data.trades[0].spread_percent, 0.24)
+        XCTAssertEqual(portafolio.data.trades[0].fee_amount, 0.25)
+        XCTAssertEqual(portafolio.data.trades[0].total_amount, 50.25)
+        XCTAssertEqual(portafolio.data.trades[0].realized_pnl, nil)
+        XCTAssertEqual(portafolio.data.trades[0].after_hours, false)
+        XCTAssertEqual(portafolio.data.trades[0].created_at, "2025-03-17T15:30:00.000Z")
+        XCTAssertEqual(portafolio.data.pagination.page, 1)
+        XCTAssertEqual(portafolio.data.pagination.take, 20)
+    }
 }
